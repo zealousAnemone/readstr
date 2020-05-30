@@ -12,7 +12,27 @@ body {
 
 button {
   background-color: $lemon-lime;
+  padding: 12px 20px;
+  border-radius: 5px;
+  margin-right: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#book-description {
+  
+}
+
 h1 {
   font-family: 'Bevan', Times, serif;
 }

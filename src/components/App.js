@@ -14,10 +14,12 @@ class App extends React.Component {
       bookDescription: null,
       isbn: null,
       toRead: [],
-      dontShow: [],
+      // dontShow: [],
     };
     this.acceptBook = this.acceptBook.bind(this);
+    this.rejectBook = this.rejectBook.bind(this);
     this.getRandomBook = this.getRandomBook.bind(this);
+    this.removeBook = this.removeBook.bind(this);
   }
 
   // accepts array of books
@@ -30,15 +32,37 @@ class App extends React.Component {
       isbn: null,
     })
     // gets random index within bounds of array
-    const rand = Math.floor(Math.random() * list.length);
-    // returns book at that index
-    const randomBook = list[rand];
+    if (list.length > 0) {
+      const rand = Math.floor(Math.random() * list.length);
+      // returns book at that index
+      const randomBook = list[rand];
+      this.setState({
+        bookTitle: randomBook.title,
+        bookCover: randomBook.book_image,
+        bookDescription: randomBook.description,
+        isbn: randomBook.primary_isbn10,
+      })
+    } else {
+      console.log('No more books!');
+    }
+  }
+
+  removeBook(book) {
+    // make copy of bookList
+    // copy is filtered to not include book just shown
+    const newBookList = this.state.bookList.filter((el) => el.title !== book)
+  
+    // setState with copy of bookList
     this.setState({
-      bookTitle: randomBook.title,
-      bookCover: randomBook.book_image,
-      bookDescription: randomBook.description,
-      isbn: randomBook.primary_isbn10,
+      bookList: newBookList,
     })
+
+    // For testing... remove later
+    console.log('Current bookList:');
+    this.state.bookList.forEach((book) => {
+      console.log(book.title);
+    })
+    
   }
 
   acceptBook() {
@@ -47,8 +71,14 @@ class App extends React.Component {
     this.setState({
       toRead: tempToRead,
     })
+    this.removeBook(this.state.bookTitle);
     this.getRandomBook(this.state.bookList);
-    console.log(`To read: ${this.state.toRead}`);
+    // console.log(`To read: ${this.state.toRead}`);
+  }
+
+  rejectBook() {
+    this.removeBook(this.state.bookTitle);
+    this.getRandomBook(this.state.bookList);
   }
 
   componentDidMount() {
@@ -72,7 +102,7 @@ class App extends React.Component {
           <BookCover cover={this.state.bookCover} />
           <BookDescription description={this.state.bookDescription} />
           <ResponseButton type='accept' acceptBook={this.acceptBook} />
-          <ResponseButton type='reject' />
+          <ResponseButton type='reject' rejectBook={this.rejectBook} />
         </div>
       </div>
     )

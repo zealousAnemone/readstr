@@ -1,9 +1,9 @@
 import React from 'react';
 
-const BookCover = () => {
+const BookCover = (props) => {
   return (
     <div>
-      <h2>Here is a book cover!</h2>
+      <img src={props.cover} />
     </div>
   )
 }

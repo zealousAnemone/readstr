@@ -1,9 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Bevan&display=swap');
 
+$green-black: #132A13;
+$teal: #0E7C7B;
+$whiteish: #F1F7EE;
+$lemon-lime: #E5F77D;
+
 body {
-  color: purple;
+  background-color: $green-black;
+  color: $whiteish;
 }
 
+button {
+  background-color: $lemon-lime;
+}
 h1 {
   font-family: 'Bevan', Times, serif;
 }

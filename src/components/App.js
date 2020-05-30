@@ -9,6 +9,7 @@ class App extends React.Component {
     this.state = {
       bookCover: null,
       bookDescription: null,
+      isbn: null,
       toRead: [],
       notToRead: [],
     };
@@ -26,7 +27,12 @@ class App extends React.Component {
         (result) => {
           const bookList = result.results.books;
           const randomBook = bookList[this.getRandomNumber(bookList.length)];
-          console.log(randomBook);
+
+          this.setState({
+            bookCover: randomBook.book_image,
+            bookDescription: randomBook.description,
+            isbn: randomBook.primary_isbn10,
+          })
         }
       )
   }
@@ -35,7 +41,7 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        <BookCover />
+        <BookCover cover={this.state.bookCover} />
         <ResponseButton type='accept' />
         <ResponseButton type='reject' />
       </div>

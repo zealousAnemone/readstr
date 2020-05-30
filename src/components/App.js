@@ -15,16 +15,18 @@ class App extends React.Component {
       toRead: [],
       dontShow: [],
     };
-    this.getRandomNumber = this.getRandomNumber.bind(this);
     this.acceptBook = this.acceptBook.bind(this);
+    this.getRandomBook = this.getRandomBook.bind(this);
   }
 
-  /*getRandomNumber(num) {
-    return Math.floor(Math.random() * num);
-  }*/
+   // accepts array of books
+  getRandomBook(list) {
+    // gets random num within bounds of array
+    const rand = Math.floor(Math.random() * list.length);
+    return list[rand];
+  }
 
   acceptBook() {
-    console.log('acceptBook running');
     const tempToRead = this.state.toRead;
     tempToRead.push(this.state.bookTitle);
     this.setState({
@@ -39,7 +41,7 @@ class App extends React.Component {
       .then(
         (result) => {
           const bookList = result.results.books;
-          const randomBook = bookList[this.getRandomNumber(bookList.length)];
+          const randomBook = this.getRandomBook(bookList);
 
           this.setState({
             bookTitle: randomBook.title,

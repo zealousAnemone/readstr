@@ -8,6 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      bookList: [],
       bookTitle: null,
       bookCover: null,
       bookDescription: null,
@@ -19,11 +20,25 @@ class App extends React.Component {
     this.getRandomBook = this.getRandomBook.bind(this);
   }
 
-   // accepts array of books
+  // accepts array of books
   getRandomBook(list) {
-    // gets random num within bounds of array
+    // make sure no book currently stored 
+    this.setState({
+      bookTitle: null,
+      bookCover: null,
+      bookDescription: null,
+      isbn: null,
+    })
+    // gets random index within bounds of array
     const rand = Math.floor(Math.random() * list.length);
-    return list[rand];
+    // returns book at that index
+    const randomBook = list[rand];
+    this.setState({
+      bookTitle: randomBook.title,
+      bookCover: randomBook.book_image,
+      bookDescription: randomBook.description,
+      isbn: randomBook.primary_isbn10,
+    })
   }
 
   acceptBook() {
@@ -32,6 +47,7 @@ class App extends React.Component {
     this.setState({
       toRead: tempToRead,
     })
+    this.getRandomBook(this.state.bookList);
     console.log(`To read: ${this.state.toRead}`);
   }
 
@@ -40,15 +56,10 @@ class App extends React.Component {
       .then(res => res.json())
       .then(
         (result) => {
-          const bookList = result.results.books;
-          const randomBook = this.getRandomBook(bookList);
-
           this.setState({
-            bookTitle: randomBook.title,
-            bookCover: randomBook.book_image,
-            bookDescription: randomBook.description,
-            isbn: randomBook.primary_isbn10,
-          })
+            bookList: result.results.books,
+          });
+          this.getRandomBook(this.state.bookList);  
         }
       )
   }

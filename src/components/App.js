@@ -2,6 +2,7 @@ import Header from './Header';
 import BookCover from './BookCover';
 import ResponseButton from './ResponseButton';
 import BookDescription from './BookDescription';
+import ToReadList from './ToReadList';
 import React from 'react';
 
 class App extends React.Component {
@@ -14,6 +15,7 @@ class App extends React.Component {
       bookDescription: null,
       isbn: null,
       toRead: [],
+      toggleList: false,
       // dontShow: [],
     };
     this.acceptBook = this.acceptBook.bind(this);
@@ -56,7 +58,6 @@ class App extends React.Component {
     this.setState({
       bookList: newBookList,
     })
-
     // For testing... remove later
     console.log('Current bookList:');
     this.state.bookList.forEach((book) => {
@@ -71,6 +72,7 @@ class App extends React.Component {
     this.setState({
       toRead: tempToRead,
     })
+    window.localStorage.setItem('toRead', JSON.stringify(this.state.toRead));
     this.removeBook(this.state.bookTitle);
     this.getRandomBook(this.state.bookList);
     // console.log(`To read: ${this.state.toRead}`);
@@ -99,10 +101,13 @@ class App extends React.Component {
       <div>
         <Header />
         <div id="main">
+          {!this.state.toggleList? 
+          <div>
           <BookCover cover={this.state.bookCover} />
           <BookDescription description={this.state.bookDescription} />
           <ResponseButton type='accept' acceptBook={this.acceptBook} />
           <ResponseButton type='reject' rejectBook={this.rejectBook} />
+          </div> : <ToReadList list={JSON.parse(window.localStorage.getItem('toRead'))} />}
         </div>
       </div>
     )

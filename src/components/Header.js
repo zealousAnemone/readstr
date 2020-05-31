@@ -5,7 +5,7 @@ const Header = () => {
     <div>
       <header>
         <h3> Readstr </h3>
-        <h3> To Read </h3>
+        <button> To Read </button>
       </header>
     </div>
   )

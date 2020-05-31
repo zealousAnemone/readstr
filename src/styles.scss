@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bevan&display=swap');
 
-$green-black: #132A13;
+$blackish: #2D2A32;
 $teal: #0E7C7B;
 $whiteish: #F1F7EE;
 $lemon-lime: #E5F77D;
+$dark-brown: #4C2719;
 
 body {
-  background-color: $green-black;
+  background-color: $teal;
   color: $whiteish;
 }
 
@@ -22,11 +23,12 @@ button {
 }
 
 header {
+  background-color: $dark-brown;
   display: flex;
   justify-content: space-between;
-  width: 80%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 0;
 }
 
 #book-description {

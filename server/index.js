@@ -4,16 +4,25 @@ const app = express();
 const port = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, '../dist');
 const HTML_FILE = path.join(DIST_DIR, 'index.html');
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
-const client = new Client({
+
+const connectionString = {
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  },
-});
+  ssl: true,
+};
 
-client.connect();
+const pool = new Pool(connectionString);
+
+pool.on('connect', () => console.log('connected to db'));
+
+
+// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+//   console.log(err ? err.stack : res.rows[0].message);
+//   client.end();
+// });
+
+// client.connect();
 
 app.use(express.static(DIST_DIR));
 app.get('/', (req, res) => {

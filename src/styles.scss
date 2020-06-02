@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bevan&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bevan&family=Open+Sans&display=swap');
 
 $blackish: #2D2A32;
 $teal: #0E7C7B;
@@ -10,6 +9,11 @@ $dark-brown: #4C2719;
 body {
   background-color: $teal;
   color: $whiteish;
+
+  p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.3em;
+  }
 }
 
 button {
@@ -33,10 +37,11 @@ header {
   padding-left: 30px;
   padding-right: 30px;
   margin-bottom: 50px;
+}
 
-  h3 {
-    cursor: pointer;
-  }
+h3:hover {
+  cursor: pointer;
+  color: $lemon-lime;
 }
 
 #book-area {

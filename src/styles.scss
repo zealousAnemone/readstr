@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bevan&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
 
 $blackish: #2D2A32;
 $teal: #0E7C7B;
@@ -29,12 +30,25 @@ header {
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-bottom: 50px;
+
+  h3 {
+    cursor: pointer;
+  }
 }
 
-#book-description {
-  
+#book-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  #book-description {
+    max-width: 350px;
+  }
 }
 
-h1 {
+h1, h3 {
   font-family: 'Bevan', Times, serif;
 }

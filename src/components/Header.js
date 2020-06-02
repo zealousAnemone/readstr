@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Header = () => {
+const Header = (props) => {
   return (
     <div>
       <header>
-        <h3> Readstr </h3>
-        <button> To Read </button>
+        <h3> READSTR </h3>
+        <h3 onClick={props.toggleList}> To Read </h3>
       </header>
     </div>
   )

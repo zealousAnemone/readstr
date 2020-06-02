@@ -22,6 +22,7 @@ class App extends React.Component {
     this.rejectBook = this.rejectBook.bind(this);
     this.getRandomBook = this.getRandomBook.bind(this);
     this.removeBook = this.removeBook.bind(this);
+    this.toggleList = this.toggleList.bind(this);
   }
 
   // accepts array of books
@@ -49,6 +50,12 @@ class App extends React.Component {
     }
   }
 
+  toggleList() {
+    const toggled = !(this.state.toggleList);
+    this.setState({
+      toggleList: toggled,
+    })
+  }
   removeBook(book) {
     // make copy of bookList
     // copy is filtered to not include book just shown
@@ -59,10 +66,10 @@ class App extends React.Component {
       bookList: newBookList,
     })
     // For testing... remove later
-    console.log('Current bookList:');
+    /*console.log('Current bookList:');
     this.state.bookList.forEach((book) => {
       console.log(book.title);
-    })
+    })*/
     
   }
 
@@ -99,14 +106,18 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header toggleList={this.toggleList}/>
         <div id="main">
           {!this.state.toggleList? 
           <div>
-          <BookCover cover={this.state.bookCover} />
-          <BookDescription description={this.state.bookDescription} />
-          <ResponseButton type='accept' acceptBook={this.acceptBook} />
-          <ResponseButton type='reject' rejectBook={this.rejectBook} />
+            <div id='book-area'>
+              <BookCover cover={this.state.bookCover} />
+              <div>
+                <BookDescription description={this.state.bookDescription} />
+                <ResponseButton type='accept' acceptBook={this.acceptBook} />
+                <ResponseButton type='reject' rejectBook={this.rejectBook} />
+              </div>
+            </div>
           </div> : <ToReadList list={JSON.parse(window.localStorage.getItem('toRead'))} />}
         </div>
       </div>

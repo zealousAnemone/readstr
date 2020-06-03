@@ -22,7 +22,7 @@ class BookCover extends React.Component {
   render() {
     return (
       <div>
-        <img src={imgUrl} />
+        <img src={this.state.imgUrl} />
       </div>
     )
   }

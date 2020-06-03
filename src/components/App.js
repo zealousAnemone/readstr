@@ -23,6 +23,7 @@ class App extends React.Component {
     this.getRandomBook = this.getRandomBook.bind(this);
     this.removeBook = this.removeBook.bind(this);
     this.toggleList = this.toggleList.bind(this);
+    this.toggleApp = this.toggleApp.bind(this);
   }
 
   // accepts array of books
@@ -51,11 +52,17 @@ class App extends React.Component {
   }
 
   toggleList() {
-    const toggled = !(this.state.toggleList);
     this.setState({
-      toggleList: toggled,
+      toggleList: true,
     })
   }
+
+  toggleApp() {
+    this.setState({
+      toggleList: false,
+    })
+  }
+
   removeBook(book) {
     // make copy of bookList
     // copy is filtered to not include book just shown

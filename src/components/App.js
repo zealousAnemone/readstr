@@ -71,6 +71,7 @@ class App extends React.Component {
         // isbn: randomBook.primary_isbn10,
         isbn: randomBook.isbn,
       })
+      this.getBookDetails(this.state.isbn);
     } else {
       console.log('No more books!');
     }

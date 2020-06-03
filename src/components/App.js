@@ -112,7 +112,7 @@ class App extends React.Component {
   /*componentDidMount() {
     
 
-    /*fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=jM07dApGlEAKNArQnG0PYJbONw8a4HWD')
+    fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=jM07dApGlEAKNArQnG0PYJbONw8a4HWD')
       .then(res => res.json())
       .then(
         (result) => {
@@ -121,7 +121,7 @@ class App extends React.Component {
           });
           this.getRandomBook(this.state.bookList);  
         }
-      )*/
+      )
   }*/
 
   render() {

@@ -7,8 +7,8 @@ const BookCover = (props) => {
   fetch(bookUrl)
     .then(res => res.json())
     .then((result) => {
-      // imgUrl = result.items[0].imageLinks.thumbnail;
-      console.log(`Result: ${result}`);
+      imgUrl = result.items[0].volumeInfo.imageLinks.thumbnail;
+      console.log(`Result: ${JSON.stringify(result)}`);
     })
   return (
     <div>

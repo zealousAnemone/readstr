@@ -24,7 +24,7 @@ class App extends React.Component {
     this.removeBook = this.removeBook.bind(this);
     this.toggleList = this.toggleList.bind(this);
     this.toggleApp = this.toggleApp.bind(this);
-    this.getBookCover = this.getBookCover.bind(this);
+    this.getBookDetails = this.getBookDetails.bind(this);
 
     fetch('/books/')
       .then(res => res.json())
@@ -39,13 +39,14 @@ class App extends React.Component {
       .catch(err => console.log('Unable to get books'));
   }
 
-  getBookCover(isbn) {
+  getBookDetails(isbn) {
     const bookUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
     fetch(bookUrl)
       .then(res => res.json())
       .then((result) => {
         this.setState({
           imgUrl: result.items[0].volumeInfo.imageLinks.thumbnail,
+          bookDescription: result.items[0].volumeInfo.description,
         })
       })
   }
@@ -146,7 +147,7 @@ class App extends React.Component {
             <div id='book-area'>
               <BookCover imgUrl={this.state.imgUrl} />
               <div>
-                <BookDescription isbn={this.state.isbn} />
+                <BookDescription title={this.state.bookTitle} description={this.state.bookDescription} />
                 <ResponseButton type='accept' acceptBook={this.acceptBook} />
                 <ResponseButton type='reject' rejectBook={this.rejectBook} />
               </div>

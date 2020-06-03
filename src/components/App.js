@@ -113,7 +113,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header toggleList={this.toggleList}/>
+        <Header toggleList={this.toggleList} toggleApp={this.toggleApp} />
         <div id="main">
           {!this.state.toggleList? 
           <div>

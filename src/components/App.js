@@ -16,7 +16,7 @@ class App extends React.Component {
       isbn: null,
       toRead: [],
       toggleList: false,
-      // dontShow: [],
+      imgUrl: null,
     };
     this.acceptBook = this.acceptBook.bind(this);
     this.rejectBook = this.rejectBook.bind(this);
@@ -24,6 +24,7 @@ class App extends React.Component {
     this.removeBook = this.removeBook.bind(this);
     this.toggleList = this.toggleList.bind(this);
     this.toggleApp = this.toggleApp.bind(this);
+    this.getBookCover = this.getBookCover.bind(this);
 
     fetch('/books/')
       .then(res => res.json())
@@ -33,10 +34,21 @@ class App extends React.Component {
         });
         this.getRandomBook(this.state.bookList);
         console.log(`App.js says: ${this.state.isbn}`);
+        this.getBookCover(this.state.isbn);
       })
       .catch(err => console.log('Unable to get books'));
   }
 
+  getBookCover(isbn) {
+    const bookUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+    fetch(bookUrl)
+      .then(res => res.json())
+      .then((result) => {
+        this.setState({
+          imgUrl: result.items[0].volumeInfo.imageLinks.thumbnail,
+        })
+      })
+  }
   // accepts array of books
   getRandomBook(list) {
     // make sure no book currently stored 
@@ -132,7 +144,7 @@ class App extends React.Component {
           {!this.state.toggleList? 
           <div>
             <div id='book-area'>
-              <BookCover isbn={this.state.isbn} />
+              <BookCover imgUrl={this.state.imgUrl} />
               <div>
                 <BookDescription isbn={this.state.isbn} />
                 <ResponseButton type='accept' acceptBook={this.acceptBook} />

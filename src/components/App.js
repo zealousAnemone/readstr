@@ -42,9 +42,10 @@ class App extends React.Component {
       const randomBook = list[rand];
       this.setState({
         bookTitle: randomBook.title,
-        bookCover: randomBook.book_image,
-        bookDescription: randomBook.description,
-        isbn: randomBook.primary_isbn10,
+        // bookCover: randomBook.book_image,
+        // bookDescription: randomBook.description,
+        // isbn: randomBook.primary_isbn10,
+        isbn: randomBook.isbn,
       })
     } else {
       console.log('No more books!');
@@ -98,7 +99,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=jM07dApGlEAKNArQnG0PYJbONw8a4HWD')
+    fetch('/books/')
+      .then(res => res.json())
+      .then((books) => {
+        return this.setState({
+          bookList: books,
+        })
+      })
+      .catch(err => console.log('Unable to get books'));
+
+    /*fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=jM07dApGlEAKNArQnG0PYJbONw8a4HWD')
       .then(res => res.json())
       .then(
         (result) => {
@@ -107,7 +117,7 @@ class App extends React.Component {
           });
           this.getRandomBook(this.state.bookList);  
         }
-      )
+      )*/
   }
 
   render() {

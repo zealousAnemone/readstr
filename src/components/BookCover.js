@@ -10,6 +10,7 @@ class BookCover extends React.Component {
 
   componentDidMount() {
     const bookUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${this.props.isbn}`;
+    console.log(this.props.isbn);
     fetch(bookUrl)
       .then(res => res.json())
       .then((result) => {

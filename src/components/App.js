@@ -106,7 +106,7 @@ class App extends React.Component {
           bookList: books,
         });
         this.getRandomBook(this.state.bookList);
-        console.log(this.state.isbn);
+        console.log(`App.js says: ${this.state.isbn}`);
       })
       .catch(err => console.log('Unable to get books'));
 

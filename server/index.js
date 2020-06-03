@@ -18,7 +18,6 @@ const getBooks = (req, res, next) => {
       return next(err);
     }
     res.locals.books = response.rows;
-    console.log(res.locals.books);
     next();
   });
 };

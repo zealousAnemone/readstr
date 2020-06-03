@@ -27,16 +27,16 @@ class App extends React.Component {
     this.getBookDetails = this.getBookDetails.bind(this);
 
     fetch('/books/')
-      .then(res => res.json())
-      .then((books) => {
-        this.setState({
-          bookList: books,
-        });
-        this.getRandomBook(this.state.bookList);
-        console.log(`App.js says: ${this.state.isbn}`);
-        this.getBookCover(this.state.isbn);
-      })
-      .catch(err => console.log('Unable to get books'));
+    .then(res => res.json())
+    .then((books) => {
+      this.setState({
+        bookList: books,
+      });
+      this.getRandomBook(this.state.bookList);
+      console.log(`App.js says: ${this.state.isbn}`);
+      this.getBookDetails(this.state.isbn);
+    })
+    .catch(err => console.log('Unable to get books'));
   }
 
   getBookDetails(isbn) {
@@ -121,7 +121,6 @@ class App extends React.Component {
     this.removeBook(this.state.bookTitle);
     this.getRandomBook(this.state.bookList);
   }
-
   /*componentDidMount() {
     
 

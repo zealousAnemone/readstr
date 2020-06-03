@@ -102,9 +102,10 @@ class App extends React.Component {
     fetch('/books/')
       .then(res => res.json())
       .then((books) => {
-        return this.setState({
+        this.setState({
           bookList: books,
-        })
+        });
+        this.getRandomBook(this.state.bookList);
       })
       .catch(err => console.log('Unable to get books'));
 

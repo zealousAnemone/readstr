@@ -24,6 +24,17 @@ class App extends React.Component {
     this.removeBook = this.removeBook.bind(this);
     this.toggleList = this.toggleList.bind(this);
     this.toggleApp = this.toggleApp.bind(this);
+
+    fetch('/books/')
+      .then(res => res.json())
+      .then((books) => {
+        this.setState({
+          bookList: books,
+        });
+        this.getRandomBook(this.state.bookList);
+        console.log(`App.js says: ${this.state.isbn}`);
+      })
+      .catch(err => console.log('Unable to get books'));
   }
 
   // accepts array of books
@@ -98,17 +109,8 @@ class App extends React.Component {
     this.getRandomBook(this.state.bookList);
   }
 
-  componentDidMount() {
-    fetch('/books/')
-      .then(res => res.json())
-      .then((books) => {
-        this.setState({
-          bookList: books,
-        });
-        this.getRandomBook(this.state.bookList);
-        console.log(`App.js says: ${this.state.isbn}`);
-      })
-      .catch(err => console.log('Unable to get books'));
+  /*componentDidMount() {
+    
 
     /*fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=jM07dApGlEAKNArQnG0PYJbONw8a4HWD')
       .then(res => res.json())
@@ -120,7 +122,7 @@ class App extends React.Component {
           this.getRandomBook(this.state.bookList);  
         }
       )*/
-  }
+  }*/
 
   render() {
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 
 const BookCover = (props) => {
   let imgUrl;
-  const bookUrl = `www.googleapis.com/books/v1/volumes?q=isbn:${props.isbn}`;
+  const bookUrl = `http://www.googleapis.com/books/v1/volumes?q=isbn:${props.isbn}`;
   fetch(bookUrl)
     .then(res => res.json())
     .then((result) => {

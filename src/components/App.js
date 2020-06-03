@@ -131,7 +131,7 @@ class App extends React.Component {
             <div id='book-area'>
               <BookCover isbn={this.state.isbn} />
               <div>
-                <BookDescription description={this.state.bookDescription} />
+                <BookDescription isbn={this.state.isbn} />
                 <ResponseButton type='accept' acceptBook={this.acceptBook} />
                 <ResponseButton type='reject' rejectBook={this.rejectBook} />
               </div>

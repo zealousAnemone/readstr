@@ -2,7 +2,7 @@ import React from 'react';
 
 const BookDescription = (props) => {
   return (
-    <p id="book-description">{props.description}</p>
+    <p id="book-description">{props.isbn}</p>
   )
 }
 

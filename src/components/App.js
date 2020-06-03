@@ -128,7 +128,7 @@ class App extends React.Component {
           {!this.state.toggleList? 
           <div>
             <div id='book-area'>
-              <BookCover cover={this.state.bookCover} />
+              <BookCover isbn={this.state.isbn} />
               <div>
                 <BookDescription description={this.state.bookDescription} />
                 <ResponseButton type='accept' acceptBook={this.acceptBook} />

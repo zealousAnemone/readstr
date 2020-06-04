@@ -1,14 +1,24 @@
 const express = require('express');
 const path = require('path');
-const { Pool } = require('pg');
+const pg = require('pg');
+
+if (process.env.NODE_ENV === 'development') {
+  pg.defaults.ssl = true;
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+}
+
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, '../dist');
 const HTML_FILE = path.join(DIST_DIR, 'index.html');
+// console.log(`node.env: ${JSON.stringify(process.env.NODE_ENV)}`);
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+const connectionUrl = process.env.NODE_ENV === 'development' ? process.env.TEMP_POSTGRES_URL : process.env.DATABASE_URL;
+
+const pool = new pg.Pool({
+  connectionString: connectionUrl,
 });
 
 const getBooks = (req, res, next) => {
@@ -21,13 +31,6 @@ const getBooks = (req, res, next) => {
     next();
   });
 };
-
-// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
-//   console.log(err ? err.stack : res.rows[0].message);
-//   client.end();
-// });
-
-// client.connect();
 
 app.use(express.static(DIST_DIR));
 

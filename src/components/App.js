@@ -4,6 +4,7 @@ import ResponseButton from './ResponseButton';
 import BookDescription from './BookDescription';
 import ToReadList from './ToReadList';
 import React from 'react';
+import regeneratorRuntime from 'regenerator-runtime';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,62 +21,41 @@ class App extends React.Component {
     };
     this.acceptBook = this.acceptBook.bind(this);
     this.rejectBook = this.rejectBook.bind(this);
-    this.getRandomBook = this.getRandomBook.bind(this);
     this.removeBook = this.removeBook.bind(this);
     this.toggleList = this.toggleList.bind(this);
     this.toggleApp = this.toggleApp.bind(this);
-    this.getBookDetails = this.getBookDetails.bind(this);
+    this.getRandomBook = this.getRandomBook.bind(this);
+  }
+
+  componentWillMount() {
+
+    let bookList = [];
 
     fetch('/books/')
     .then(res => res.json())
     .then((books) => {
-      this.setState({
-        bookList: books,
-      });
-      this.getRandomBook(this.state.bookList);
-      console.log(`App.js says: ${this.state.isbn}`);
-      this.getBookDetails(this.state.isbn);
+      bookList = books;
     })
-    .catch(err => console.log('Unable to get books'));
+    .finally(() => {
+      const random = this.getRandomBook(bookList);
+      this.setState({
+        bookList: bookList,
+        bookTitle: random.title,
+        isbn: random.isbn,
+        bookCover: random.cover,
+      })
+      console.log(this.state.bookList);
+    })
   }
 
-  getBookDetails(isbn) {
-    const bookUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
-    fetch(bookUrl)
-      .then(res => res.json())
-      .then((result) => {
-        this.setState({
-          imgUrl: result.items[0].volumeInfo.imageLinks.thumbnail,
-          bookDescription: result.items[0].volumeInfo.description,
-        })
-      })
-  }
-  // accepts array of books
   getRandomBook(list) {
-    // make sure no book currently stored 
-    this.setState({
-      bookTitle: null,
-      bookCover: null,
-      bookDescription: null,
-      isbn: null,
-    })
-    // gets random index within bounds of array
-    if (list.length > 0) {
-      const rand = Math.floor(Math.random() * list.length);
-      // returns book at that index
-      const randomBook = list[rand];
-      this.setState({
-        bookTitle: randomBook.title,
-        // bookCover: randomBook.book_image,
-        // bookDescription: randomBook.description,
-        // isbn: randomBook.primary_isbn10,
-        isbn: randomBook.isbn,
-      })
-      this.getBookDetails(this.state.isbn);
-    } else {
+      if (list.length > 0) {
+        const rand = Math.floor(Math.random() * list.length);
+        return list[rand];
+      } else {
       console.log('No more books!');
+      }
     }
-  }
 
   toggleList() {
     this.setState({
@@ -93,34 +73,27 @@ class App extends React.Component {
     // make copy of bookList
     // copy is filtered to not include book just shown
     const newBookList = this.state.bookList.filter((el) => el.title !== book)
-  
+    const newBook = this.getRandomBook(newBookList);
     // setState with copy of bookList
     this.setState({
       bookList: newBookList,
-    })
-    // For testing... remove later
-    /*console.log('Current bookList:');
-    this.state.bookList.forEach((book) => {
-      console.log(book.title);
-    })*/
-    
+      bookTitle: newBook.title,
+      isbn: newBook.isbn,
+      bookCover: newBook.cover,
+    })  
   }
 
   acceptBook() {
-    const tempToRead = this.state.toRead;
+  
+    const tempToRead = JSON.parse(localStorage.getItem('toRead'));
     tempToRead.push(this.state.bookTitle);
-    this.setState({
-      toRead: tempToRead,
-    })
-    window.localStorage.setItem('toRead', JSON.stringify(this.state.toRead));
+    window.localStorage.setItem('toRead', JSON.stringify(tempToRead));
     this.removeBook(this.state.bookTitle);
-    this.getRandomBook(this.state.bookList);
-    // console.log(`To read: ${this.state.toRead}`);
   }
 
   rejectBook() {
-    this.removeBook(this.state.bookTitle);
-    this.getRandomBook(this.state.bookList);
+    // this.removeBook(this.state.bookTitle);
+    // this.getRandomBook(this.state.bookList);
   }
   /*componentDidMount() {
     
@@ -138,6 +111,7 @@ class App extends React.Component {
   }*/
 
   render() {
+    
     return (
       <div>
         <Header toggleList={this.toggleList} toggleApp={this.toggleApp} />
@@ -145,7 +119,7 @@ class App extends React.Component {
           {!this.state.toggleList? 
           <div>
             <div id='book-area'>
-              <BookCover imgUrl={this.state.imgUrl} />
+              <BookCover imgUrl={this.state.bookCover} />
               <div>
                 <BookDescription title={this.state.bookTitle} description={this.state.bookDescription} />
                 <ResponseButton type='accept' acceptBook={this.acceptBook} />

@@ -5,18 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/index.js",
+    "start": "NODE_ENV=production node server/index.js",
     "build": "webpack --mode production",
-    "dev": "webpack --mode development && node server/index.js"
+    "dev": "webpack --mode development && NODE_ENV=development node server/index.js"
   },
   "author": "Veronica Stork",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "path": "^0.12.7",
     "pg": "^8.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "regenerator-runtime": "^0.13.5",
     "request": "^2.88.2"
   },
   "devDependencies": {

@@ -43,6 +43,7 @@ class App extends React.Component {
         bookTitle: random.title,
         isbn: random.isbn,
         bookCover: random.cover,
+        bookDescription: random.details,
       })
       console.log(this.state.bookList);
     })
@@ -70,16 +71,14 @@ class App extends React.Component {
   }
 
   removeBook(book) {
-    // make copy of bookList
-    // copy is filtered to not include book just shown
     const newBookList = this.state.bookList.filter((el) => el.title !== book)
     const newBook = this.getRandomBook(newBookList);
-    // setState with copy of bookList
     this.setState({
       bookList: newBookList,
       bookTitle: newBook.title,
       isbn: newBook.isbn,
       bookCover: newBook.cover,
+      bookDescription: newBook.details,
     })  
   }
 
@@ -92,23 +91,8 @@ class App extends React.Component {
   }
 
   rejectBook() {
-    // this.removeBook(this.state.bookTitle);
-    // this.getRandomBook(this.state.bookList);
+    this.removeBook(this.state.bookTitle);
   }
-  /*componentDidMount() {
-    
-
-    fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=jM07dApGlEAKNArQnG0PYJbONw8a4HWD')
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            bookList: result.results.books,
-          });
-          this.getRandomBook(this.state.bookList);  
-        }
-      )
-  }*/
 
   render() {
     
@@ -123,7 +107,7 @@ class App extends React.Component {
               <div>
                 <BookDescription title={this.state.bookTitle} description={this.state.bookDescription} />
                 <ResponseButton type='accept' acceptBook={this.acceptBook} />
-                <ResponseButton type='reject' rejectBook={this.rejectBook} />
+                <ResponseButton type='reject' removeBook={this.removeBook} />
               </div>
             </div>
           </div> : <ToReadList list={JSON.parse(window.localStorage.getItem('toRead'))} />}

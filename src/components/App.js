@@ -105,7 +105,7 @@ class App extends React.Component {
                 <ResponseButton type='reject' removeBook={this.removeBook} />
               </div>
             </div>
-          </div> : <ToReadList list={JSON.parse(window.localStorage.getItem('toRead'))} />}
+          </div> : <ToReadList />}
         </div>
       </div>
     )

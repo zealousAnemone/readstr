@@ -32,6 +32,19 @@ const getBooks = (req, res, next) => {
   });
 };
 
+const getToRead = (req, res, next) => {
+  const text = 'SELECT * FROM public.toread';
+  pool.query(text, (err, response) => {
+    if (err) {
+      return next(err);
+    }
+    if (response.rows.length > 0) {
+      res.locals.toread = response.rows;
+    }
+    next();
+  });
+};
+
 app.use(express.static(DIST_DIR));
 
 app.get('/', (req, res) => {
@@ -39,6 +52,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/books', getBooks, (req, res) => res.status(200).json(res.locals.books));
+
+app.get('/toread', getToRead, (req, res) => res.status(200).json(res.locals.toread));
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);

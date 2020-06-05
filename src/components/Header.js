@@ -4,8 +4,8 @@ const Header = (props) => {
   return (
     <div>
       <header>
-        <h3 onClick={props.toggleApp}> READSTR </h3>
-        <h3 onClick={props.toggleList}> To Read </h3>
+        <h3 id='readstr' onClick={props.toggleList}> READSTR </h3>
+        <h3 id='to-read' onClick={props.toggleList}> To Read </h3>
       </header>
     </div>
   )

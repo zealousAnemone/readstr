@@ -4,7 +4,6 @@ import ResponseButton from './ResponseButton';
 import BookDescription from './BookDescription';
 import ToReadList from './ToReadList';
 import React from 'react';
-import regeneratorRuntime from 'regenerator-runtime';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,15 +14,12 @@ class App extends React.Component {
       bookCover: null,
       bookDescription: null,
       isbn: null,
-      toRead: [],
       toggleList: false,
-      imgUrl: null,
     };
     this.acceptBook = this.acceptBook.bind(this);
     this.rejectBook = this.rejectBook.bind(this);
     this.removeBook = this.removeBook.bind(this);
     this.toggleList = this.toggleList.bind(this);
-    this.toggleApp = this.toggleApp.bind(this);
     this.getRandomBook = this.getRandomBook.bind(this);
   }
 
@@ -45,7 +41,6 @@ class App extends React.Component {
         bookCover: random.cover,
         bookDescription: random.details,
       })
-      console.log(this.state.bookList);
     })
   }
 
@@ -58,16 +53,16 @@ class App extends React.Component {
       }
     }
 
-  toggleList() {
-    this.setState({
-      toggleList: true,
-    })
-  }
-
-  toggleApp() {
-    this.setState({
-      toggleList: false,
-    })
+  toggleList(e) {
+    if (e.target.id === 'to-read') {
+      this.setState({
+        toggleList: true,
+      })
+    } else {
+      this.setState({
+        toggleList: false,
+      })
+    }
   }
 
   removeBook(book) {
@@ -98,7 +93,7 @@ class App extends React.Component {
     
     return (
       <div>
-        <Header toggleList={this.toggleList} toggleApp={this.toggleApp} />
+        <Header toggleList={this.toggleList} />
         <div id="main">
           {!this.state.toggleList? 
           <div>

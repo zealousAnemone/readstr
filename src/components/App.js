@@ -17,7 +17,6 @@ class App extends React.Component {
       toggleList: false,
     };
     this.acceptBook = this.acceptBook.bind(this);
-    this.rejectBook = this.rejectBook.bind(this);
     this.removeBook = this.removeBook.bind(this);
     this.toggleList = this.toggleList.bind(this);
     this.getRandomBook = this.getRandomBook.bind(this);
@@ -31,7 +30,7 @@ class App extends React.Component {
     .then(res => res.json())
     .then((books) => {
       bookList = books;
-      console.log(bookList);
+      // console.log(bookList);
     })
     .finally(() => {
       const random = this.getRandomBook(bookList);
@@ -66,8 +65,9 @@ class App extends React.Component {
     }
   }
 
-  removeBook(book) {
-    const newBookList = this.state.bookList.filter((el) => el.title !== book)
+  removeBook() {
+    const newBookList = this.state.bookList.filter((el) => el.title !== this.state.bookTitle)
+    console.log('book to remove: ', this.state.bookTitle, '. New book list: ', newBookList);
     const newBook = this.getRandomBook(newBookList);
     this.setState({
       bookList: newBookList,
@@ -93,14 +93,10 @@ class App extends React.Component {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
 
-    this.removeBook(this.state.bookTitle);
-  }
-
-  rejectBook() {
-    this.removeBook(this.state.bookTitle);
+    this.removeBook();
   }
 
   render() {

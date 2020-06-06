@@ -24,10 +24,10 @@ class Login extends React.Component  {
       },
       body: JSON.stringify(userInfo),
     })
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response);
-      })
+      // .then((res) => res.json())
+      // .then((response) => {
+      //   console.log(response);
+      // })
       this.props.toggleLogin();
   }
 

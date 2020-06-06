@@ -25,7 +25,7 @@ class App extends React.Component {
     this.getRandomBook = this.getRandomBook.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
 
     let bookList = [];
 
@@ -101,10 +101,10 @@ class App extends React.Component {
       },
       body: JSON.stringify(data),
     })
-      .then((res) => res.json())
-      .then((response) => {
-        // console.log(response);
-      })
+      // .then((res) => res.json())
+      // .then((response) => {
+      //   // console.log(response);
+      // })
 
     this.removeBook();
   }

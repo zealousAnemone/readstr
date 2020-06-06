@@ -57,7 +57,6 @@ const addBook = (req, res, next) => {
 };
 
 const addUser = (req, res, next) => {
-  console.log('add user running. values: ', req.body.username, req.body.password);
   const text = `INSERT INTO public.users VALUES ('${req.body.username}', '${req.body.password}')`;
   pool.query(text, (err, response) => {
     if (err) {
@@ -78,9 +77,9 @@ app.get('/books', getBooks, (req, res) => res.status(200).json(res.locals.books)
 
 app.get('/toread', getToRead, (req, res) => res.status(200).json(res.locals.toread));
 
-app.post('/toread', addBook, (req, res) => res.status(200));
+app.post('/toread', addBook, (req, res) => res.status(200).end());
 
-app.post('/login', addUser, (req, res) => res.status(200));
+app.post('/login', addUser, (req, res) => res.status(200).end());
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);

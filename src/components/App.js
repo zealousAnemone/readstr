@@ -31,6 +31,7 @@ class App extends React.Component {
     .then(res => res.json())
     .then((books) => {
       bookList = books;
+      console.log(bookList);
     })
     .finally(() => {
       const random = this.getRandomBook(bookList);
@@ -95,11 +96,6 @@ class App extends React.Component {
         console.log(response);
       })
 
-    // const tempToRead = JSON.parse(localStorage.getItem('toRead'));
-    // tempToRead.push(this.state.bookTitle);
-    // // add to db instead
-    // // do in router? post instead of get?
-    // window.localStorage.setItem('toRead', JSON.stringify(tempToRead));
     this.removeBook(this.state.bookTitle);
   }
 

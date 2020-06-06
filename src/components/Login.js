@@ -14,8 +14,8 @@ class Login extends React.Component  {
 
   loginUser() {
     const userInfo = {
-      username: this.state.username,
-      password: this.state.password,
+      username: document.getElementById('user').value,
+      password: document.getElementById('pw').value,
     }
     fetch('/login/', {
       method: 'POST',
@@ -28,6 +28,7 @@ class Login extends React.Component  {
       .then((response) => {
         console.log(response);
       })
+      this.props.toggleLogin();
   }
 
   render() {
@@ -38,8 +39,8 @@ class Login extends React.Component  {
           <p id='close' onClick={this.props.toggleLogin}>X</p>
         </header>
         <div id="login-form">
-          <input type='text'></input>
-          <input type='password'></input>
+          <input type='text' id='user'></input>
+          <input type='password' id='pw'></input>
           <button onClick={this.loginUser}>Login or Sign up!</button>
         </div>
       </div>

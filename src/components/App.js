@@ -78,10 +78,28 @@ class App extends React.Component {
   }
 
   acceptBook() {
-  
-    const tempToRead = JSON.parse(localStorage.getItem('toRead'));
-    tempToRead.push(this.state.bookTitle);
-    window.localStorage.setItem('toRead', JSON.stringify(tempToRead));
+    const data = {
+      isbn: this.state.isbn,
+      title: this.state.bookTitle,
+    }
+    console.log('book accepted: ', this.state.bookTitle);
+    fetch('/toread/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+      })
+
+    // const tempToRead = JSON.parse(localStorage.getItem('toRead'));
+    // tempToRead.push(this.state.bookTitle);
+    // // add to db instead
+    // // do in router? post instead of get?
+    // window.localStorage.setItem('toRead', JSON.stringify(tempToRead));
     this.removeBook(this.state.bookTitle);
   }
 

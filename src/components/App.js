@@ -3,6 +3,7 @@ import BookCover from './BookCover';
 import ResponseButton from './ResponseButton';
 import BookDescription from './BookDescription';
 import ToReadList from './ToReadList';
+import Login from './Login';
 import React from 'react';
 
 class App extends React.Component {
@@ -15,10 +16,12 @@ class App extends React.Component {
       bookDescription: null,
       isbn: null,
       toggleList: false,
+      toggleLogin: false,
     };
     this.acceptBook = this.acceptBook.bind(this);
     this.removeBook = this.removeBook.bind(this);
     this.toggleList = this.toggleList.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
     this.getRandomBook = this.getRandomBook.bind(this);
   }
 
@@ -65,9 +68,16 @@ class App extends React.Component {
     }
   }
 
+  toggleLogin() {
+    console.log('toggleLogin running');
+    this.setState({
+      toggleLogin: !this.state.toggleLogin,
+    })
+  }
+
   removeBook() {
     const newBookList = this.state.bookList.filter((el) => el.title !== this.state.bookTitle)
-    console.log('book to remove: ', this.state.bookTitle, '. New book list: ', newBookList);
+    // console.log('book to remove: ', this.state.bookTitle, '. New book list: ', newBookList);
     const newBook = this.getRandomBook(newBookList);
     this.setState({
       bookList: newBookList,
@@ -83,7 +93,7 @@ class App extends React.Component {
       isbn: this.state.isbn,
       title: this.state.bookTitle,
     }
-    console.log('book accepted: ', this.state.bookTitle);
+    // console.log('book accepted: ', this.state.bookTitle);
     fetch('/toread/', {
       method: 'POST',
       headers: {
@@ -100,13 +110,18 @@ class App extends React.Component {
   }
 
   render() {
-    
+    let login;
+    let blurred = '';
+    if (this.state.toggleLogin) {
+      login = < Login toggleLogin={this.toggleLogin} />;
+      blurred = 'blurredBackground';
+    }
     return (
       <div>
-        <Header toggleList={this.toggleList} />
+        <Header toggleList={this.toggleList} toggleLogin={this.toggleLogin} />
         <div id="main">
           {!this.state.toggleList? 
-          <div>
+          <div className={ blurred }>
             <div id='book-area'>
               <BookCover imgUrl={this.state.bookCover} />
               <div>
@@ -116,6 +131,7 @@ class App extends React.Component {
               </div>
             </div>
           </div> : <ToReadList />}
+          { login }
         </div>
       </div>
     )

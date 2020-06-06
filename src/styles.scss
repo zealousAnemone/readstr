@@ -54,6 +54,56 @@ h3:hover {
   }
 }
 
+#to-read-list {
+  margin-left: 100px;
+}
+
+#login-container {
+  z-index: 1;
+  background-color: $lemon-lime;
+  position: fixed;
+  left: 30%;
+  top: 30%;
+  width: 400px;
+  height: 300px;
+  color: $blackish;
+  border-radius: 10px;
+
+  header {
+    background-color: $dark-brown;
+    color: $whiteish;
+    position: relative;
+    border-radius: 10px 10px 0 0;
+  }
+
+  button {
+    background-color: $teal;
+    color: $whiteish;
+    font-size: 1.1em;
+  }
+
+  #close {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+  }
+
+  #login-form {
+    text-align: center;
+    margin: 10px;
+  }
+
+  input {
+    font-size: 1.2em;
+    margin-bottom: 12px;
+  }
+}
+
+
+.blurredBackground {
+  filter: blur(4px);
+}
+
 h1, h2, h3, h4 {
   font-family: 'Bevan', Times, serif;
 }

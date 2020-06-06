@@ -13,13 +13,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, '../dist');
 const HTML_FILE = path.join(DIST_DIR, 'index.html');
-// console.log(`node.env: ${JSON.stringify(process.env.NODE_ENV)}`);
 
 const connectionUrl = process.env.NODE_ENV === 'development' ? process.env.TEMP_POSTGRES_URL : process.env.DATABASE_URL;
 
 const pool = new pg.Pool({
   connectionString: connectionUrl,
 });
+
+// Controllers. Move to own file later.
 
 const getBooks = (req, res, next) => {
   const text = 'SELECT * FROM public.books';
@@ -67,6 +68,7 @@ app.get('/books', getBooks, (req, res) => res.status(200).json(res.locals.books)
 app.get('/toread', getToRead, (req, res) => res.status(200).json(res.locals.toread));
 
 app.post('/toread', addBook, (req, res) => res.status(200));
+
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
 });

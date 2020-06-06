@@ -56,6 +56,16 @@ const addBook = (req, res, next) => {
   });
 };
 
+const addUser = (req, res, next) => {
+  const text = `INSERT INTO public.users VALUES ('${req.body.username}', '${req.body.password}')`;
+  pool.query(text, (err, response) => {
+    if (err) {
+      return next(err);
+    }
+    next();
+  });
+};
+
 app.use(express.static(DIST_DIR));
 app.use(express.json());
 
@@ -68,6 +78,8 @@ app.get('/books', getBooks, (req, res) => res.status(200).json(res.locals.books)
 app.get('/toread', getToRead, (req, res) => res.status(200).json(res.locals.toread));
 
 app.post('/toread', addBook, (req, res) => res.status(200));
+
+app.post('/login', addUser, (req, res) => res.status(200));
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);

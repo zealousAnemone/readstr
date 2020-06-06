@@ -57,6 +57,7 @@ const addBook = (req, res, next) => {
 };
 
 const addUser = (req, res, next) => {
+  console.log('add user running. values: ', req.body.username, req.body.password);
   const text = `INSERT INTO public.users VALUES ('${req.body.username}', '${req.body.password}')`;
   pool.query(text, (err, response) => {
     if (err) {

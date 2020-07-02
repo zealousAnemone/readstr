@@ -7,12 +7,12 @@ Readstr is a simple app that provides random book recommendations that the user 
 
 ## Technologies Used
 
-React (for frontend/state management)
-CSS/SASS
-NodeJS/ExpressJS (for server/middleware)
-Postgres (for database)
-Webpack
-Deployed on Heroku
+React (for frontend/state management). 
+CSS/SASS. 
+NodeJS/ExpressJS (for server/middleware). 
+Postgres (for database). 
+Webpack. 
+Deployed on Heroku. 
 
 ## Features to Add
 
